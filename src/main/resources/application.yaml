@@ -1,15 +1,15 @@
-spring:
-  datasource:
-    url: jdbc:h2:file:./dataBase;AUTO_SERVER=TRUE
-    driverClassName: org.h2.Driver
-    username: sa
-    password: 1234
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    hibernate:
-      ddl-auto: update
-  liquibase:
-    enabled: false
-  sql:
-    init:
-      mode: always
+#spring:
+#  datasource:
+#    url: jdbc:h2:file:./dataBase;AUTO_SERVER=TRUE
+#    driverClassName: org.h2.Driver
+#    username: root
+#    password: 122334Asd
+#  jpa:
+#    database-platform: org.hibernate.dialect.H2Dialect
+#    hibernate:
+#      ddl-auto: create
+#  liquibase:
+#    enabled: false
+#  sql:
+#    init:
+#      mode: always

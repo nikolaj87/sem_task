@@ -23,7 +23,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/").permitAll()
-                        //.requestMatchers(HttpMethod.POST,"/clients/create-user").authenticated() - мне кажется этот запрос можно всем,так как регистрация это изначальная дорога
+                        .requestMatchers(HttpMethod.POST,"/clients/create-user").permitAll()
                         .requestMatchers(HttpMethod.POST,"/clients//{id}").authenticated()
                         .requestMatchers(HttpMethod.POST,"/clients/createManager").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET,"/clients/{/name}").hasRole("ADMIN")

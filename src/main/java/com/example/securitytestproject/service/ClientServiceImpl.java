@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,6 +24,8 @@ public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository clientRepository;
     private final ClientMapper clientMapper;
+    private final PasswordEncoder passwordEncoder;
+
 
 
     @Override
@@ -35,7 +38,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientResponseDto createRequestDtoForManager(ClientRequestDto clientRequestDto) {
         Client client = clientMapper.toEntity(clientRequestDto);
-        client.setRoles(Set.of(new Role(1L,"ADMIN")));
+//        client.setRoles(Set.of(new Role("ADMIN")));
         client.setCreatedAt(LocalDateTime.now());
         client.setUpdatedAt(LocalDateTime.now());
         clientRepository.save(client);
@@ -43,11 +46,11 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    //ЭТОТ КОНТРОЛЛЕР РАБОТАЕТ
     public ClientResponseDto createRequestDtoForClient(ClientRequestDto clientRequestDto) {
         Client client = clientMapper.toEntity(clientRequestDto);
-        client.setRoles(Set.of(new Role(1L,"USER")));
-        client.setCreatedAt(LocalDateTime.now());
-        client.setUpdatedAt(LocalDateTime.now());
+        client.setPassword(passwordEncoder.encode(clientRequestDto.getPassword()));
+        client.setRoles(Set.of(new Role(2L, "USER", null)));
         clientRepository.save(client);
         return clientMapper.toDto(client);
     }

@@ -38,12 +38,14 @@ public class Client implements UserDetails {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @OneToMany(
-            mappedBy = "client",
-            fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "clients_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
